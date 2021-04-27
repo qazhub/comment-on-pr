@@ -18,3 +18,4 @@ runs:
   args:
     - ${{ inputs.msg }}
     - ${{ inputs.check_for_duplicate_msg }}
+    - ${{ inputs.duplicate_word }}
