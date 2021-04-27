@@ -46,12 +46,14 @@ end
 coms = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
-  duplicate = coms.find { |c| c["body"].include? duplicate_word }
+  duplicated = coms.detect { |c| c["body"].include? duplicate_word }
 
-  if duplicate
-    puts "The PR already contains this message"
+  if duplicated
+    puts "The PR already contains this comment, editing..."
+    github.update_comment(repo, duplicated["id"], message)
     exit(0)
   end
 end
 
+puts "Adding comment to PR..."
 github.add_comment(repo, pr_number, message)
