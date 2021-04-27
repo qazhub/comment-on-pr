@@ -20,6 +20,12 @@ end
 
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
+duplicate_word = ARGV[2]
+
+if duplicate_word.empty?
+  duplicate_word = message
+end
+
 repo = event["repository"]["full_name"]
 
 if ENV.fetch("GITHUB_EVENT_NAME") == "pull_request"
@@ -40,7 +46,7 @@ end
 coms = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
-  duplicate = coms.find { |c| c["body"] == message }
+  duplicate = coms.find { |c| c["body"].include? duplicate_word }
 
   if duplicate
     puts "The PR already contains this message"
