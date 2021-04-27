@@ -12,6 +12,9 @@ inputs:
     description: If false, action doesn't check for duplicate msg.
     required: false
     default: true
+  duplicate_word:
+    description: The text used to detect duplication. If not given, the whole msg will be used.
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
